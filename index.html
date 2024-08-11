@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js"></script>
+    <title>Cadastro de Fornecedor/produto</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="/portal/resources/js/jquery/jquery.js"></script>
+    <script src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+    <script src="/portal/resources/js/mustache/mustache-min.js"></script>
+    <script src="/style-guide/js/fluig-style-guide.min.js"></script>
+</head>
+<body>
+    
+    <div class="panel panel-default">
+        <div>
+            <h4 class="text-center">CADASTRO DE FORNECEDOR/PRODUTO</h4>
+        </div>
+        <section class="container">
+        <div class="panel-body .col-md-3">          
+            <h5>Dados do Fornecedor</h5>
+        </div>
+    
+    <div class="fluig-style-guide">
+        <form class="form-horizontal row" role="form" id="supplierForm">
+        
+            <div class="form-group col-md-5">
+                <label class="col-sm-5 control-label">Razão Social*</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="razaoSocial" placeholder="" required>
+                </div>
+            </div>
+        
+        
+            <div class="form-group col-md-5">
+                <label class="col-sm-5 control-label">Nome Fantasia*</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nomeFantasia" placeholder="" required>
+                </div>
+            </div>
+        
+        
+            <div class="form-group .col-md-2">
+                <label class="col-sm-2 control-label">CNPJ*</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="cnpj" maxlength="14" placeholder="00000000000000" required>
+                </div>
+            </div>
+        
+        
+            <div class="form-group col-md-5">
+                <label class="col-sm-8 control-label">Inscrição Estadual</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inscricaoEstadual" placeholder="">
+                </div>
+            </div>
+        
+        
+            <div class="form-group col-md-4">
+                <label class="col-sm-8 control-label">Inscrição Municipal</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inscricaoMunicipal" placeholder="">
+                </div>
+            </div>
+        
+        
+            <div class="form-group col-md-5">
+                <label class="col-sm-2 control-label">CEP*</label>
+                <div class="col-sm-10">
+                    <input type="text" maxlength="9" class="form-control" id="cep" placeholder="00000-000" required>
+                </div>
+            </div>
+            <div class="form-group col-md-5">
+                <label class="col-sm-5 control-label">Endereço*</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="endereco" placeholder="" readonly required>
+                </div>
+            </div>
+        
+        
+            <div class="form-group col-md-5">
+                <label class="col-sm-8 control-label">Nome de Contato*</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nomeContato" placeholder="Lucas Silva" required>
+                </div>
+            </div>
+        
+        
+            <div class="form-group col-md-5">
+                <label class="col-sm-2 control-label">Telefone*</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" maxlength="12" id="telefone" placeholder="(00)0000000" required>
+                </div>
+            </div>
+        
+            <!-- E-mail -->
+            <div class="form-group col-md-8">
+                <label class="col-sm-2 control-label">E-mail*</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" placeholder="exemplo@email.com" required>
+                </div>
+            </div>
+        
+    </section>
+
+    <section class="container">
+            
+            <div class="panel-body .col-md-3">          
+                <h5>Produto</h5>
+            </div>
+                    <table class="table" id="productTable">
+                        <thead>
+                            <tr>   
+                                <th class="col-ms-5">Descrição</th>
+                                <th class="col-sm-2"> Unidade</th>
+                                <th class="col-sm-2 ">Quantidade</th>
+                                <th class="col-sm-2">Valor Unitário</th>
+                                <th class="col-sm-2">Valor Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center">
+                                <td ><input type="text" class="form-control " placeholder="" required></td>
+                                <td><input type="text" class="form-control " placeholder="" required></td>
+                                <td><input type="number" class="form-control " placeholder="" required></td>
+                                <td><input type="number" step="0.01" class="form-control " placeholder="" required></td>
+                                <td><input type="text" class="form-control " placeholder="" readonly required></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-primary" id="addProduct">Adicionar Produto</button>
+                        </div>
+                    </div>
+                </section>
+                <section class="container">
+
+            <div class="panel-body .col-md-3">          
+                <h5>Anexos</h5>
+            </div>
+                    <table class="table" id="attachmentTable">
+                        <thead>
+                            <tr>
+                                <th>Documento</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="file" class="form-control" required></td>
+                                <td>
+                                    <button type="button" class="btn btn-danger deleteAttachment">Excluir</button>
+                                    <button type="button" class="btn btn-primary viewAttachment">Visualizar </button>
+                                    <i class="flaticon flaticon-view icon-xl" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-primary" id="addAttachment">Adicionar Anexo</button>
+                </div>
+            </div>
+        </section>
+
+            <div class="form-group col-mx-10 text-center center">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary " id="saveSupplier" >Salvar Fornecedor</button>
+                </div>
+            </div>
+        </form>
+        
+
+    </div>
+    
+
+</body>
+</html>
