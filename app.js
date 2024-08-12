@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-   
+
     document.getElementById('addProduct').addEventListener('click', function () {
         const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
         const newRow = table.insertRow();
@@ -11,12 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
             <td><input type="number" step="0.01" class="form-control" placeholder="Valor Unitário" required></td>
             <td><input type="text" class="form-control" placeholder="Valor Total" readonly required></td>
         `;
-
-        
-        
     });
 
-    
+
     document.getElementById('addAttachment').addEventListener('click', function () {
         const table = document.getElementById('attachmentTable').getElementsByTagName('tbody')[0];
         const newRow = table.insertRow();
@@ -30,17 +27,12 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
     });
 
- 
+
     document.getElementById('attachmentTable').addEventListener('click', function (e) {
-        if (e.target && e.target.classList.contains('deleteAttachment')) {
+        if (e.target.classList.contains('deleteAttachment')) {
             const row = e.target.closest('tr');
             row.remove();
-        }
-    });
-
- 
-    document.getElementById('attachmentTable').addEventListener('click', function (e) {
-        if (e.target && e.target.classList.contains('viewAttachment')) {
+        } else if (e.target.classList.contains('viewAttachment')) {
             const fileInput = e.target.closest('tr').querySelector('input[type="file"]');
             const file = fileInput.files[0];
             if (file) {
@@ -50,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
- 
+
     document.getElementById('cep').addEventListener('blur', function () {
         const cep = this.value.replace(/\D/g, '');
         if (cep) {
@@ -70,29 +62,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-  
-    document.getElementById('productTable').addEventListener('input', function (e) {
-        const row = e.target.closest('tr');
-        const quantidade = row.querySelector('input[type="number"]').value;
-        const valorUnitario = row.querySelector('input[type="number"]').value;
-        const valorTotalInput = row.querySelector('input[readonly]');
 
-        if (quantidade && valorUnitario) {
-            valorTotalInput.value = (quantidade * valorUnitario).toFixed(2);
+    document.getElementById('productTable').addEventListener('input', function (e) {
+        if (e.target.closest('tr')) {
+            const row = e.target.closest('tr');
+            const quantidade = row.querySelector('input[type="number"]').value;
+            const valorUnitario = row.querySelectorAll('input[type="number"]')[1].value;
+            const valorTotalInput = row.querySelector('input[readonly]');
+
+            if (quantidade && valorUnitario) {
+                valorTotalInput.value = (quantidade * valorUnitario).toFixed(2);
+            }
         }
     });
 
- 
+
     document.getElementById('saveSupplier').addEventListener('click', function () {
         const formData = new FormData(document.getElementById('supplierForm'));
         const products = [];
         const attachments = [];
 
         document.querySelectorAll('#productTable tbody tr').forEach(row => {
-            const descricao = row.querySelector('input[type="text"]').value;
-            const unidadeMedida = row.querySelector('input[type="text"]').value;
-            const quantidade = row.querySelector('input[type="number"]').value;
-            const valorUnitario = row.querySelector('input[type="number"]').value;
+            const descricao = row.querySelectorAll('input[type="text"]')[0].value;
+            const unidadeMedida = row.querySelectorAll('input[type="text"]')[1].value;
+            const quantidade = row.querySelectorAll('input[type="number"]')[0].value;
+            const valorUnitario = row.querySelectorAll('input[type="number"]')[1].value;
             const valorTotal = row.querySelector('input[readonly]').value;
 
             if (descricao && unidadeMedida && quantidade && valorUnitario && valorTotal) {
@@ -122,6 +116,9 @@ document.addEventListener('DOMContentLoaded', function () {
             attachments,
         };
 
+        console.log(supplierData);
+    
+    });
 
 });
 
